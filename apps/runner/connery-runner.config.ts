@@ -50,6 +50,14 @@ const config: Config = {
         runnerApiKey: process.env.CONNERY_RUNNER_API_KEY || '', // This API key is used by the plugin to access the runner's API.
       },
     },
+    {
+      key: 'connery-io/gmail@v1.0.2',
+      configurationParameters: {
+        gmailEmailAddress: process.env.GMAIL_EMAIL_ADDRESS || '',
+        gmailAppPassword: process.env.GMAIL_APP_PASSWORD || '',
+        senderName: process.env.GMAIL_SENDER_NAME || 'Connery Runner',
+      },
+    },
   ],
 };
 export default () => config;
