@@ -51,11 +51,11 @@ const config: Config = {
       },
     },
     {
-      key: 'connery-io/gmail@v1.0.2',
+      key: 'intertwine/connery-plugin-novu',
       configurationParameters: {
-        gmailEmailAddress: process.env.GMAIL_EMAIL_ADDRESS || '',
-        gmailAppPassword: process.env.GMAIL_APP_PASSWORD || '',
-        senderName: process.env.GMAIL_SENDER_NAME || 'Connery Runner',
+        novuApiKey: process.env.NOVU_API_KEY || '',
+        novuEmailTrigger: process.env.NOVU_EMAIL_TRIGGER || 'send-email',
+        novuSmsTrigger: process.env.NOVU_SMS_TRIGGER || 'send-sms',
       },
     },
   ],
