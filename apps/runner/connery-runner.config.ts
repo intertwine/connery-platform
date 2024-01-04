@@ -51,7 +51,7 @@ const config: Config = {
       },
     },
     {
-      key: 'intertwine/connery-plugin-novu',
+      key: 'intertwine/connery-plugin-novu@main',
       configurationParameters: {
         novuApiKey: process.env.NOVU_API_KEY || '',
         novuEmailTrigger: process.env.NOVU_EMAIL_TRIGGER || 'send-email',
