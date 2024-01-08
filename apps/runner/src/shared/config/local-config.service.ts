@@ -36,7 +36,12 @@ export class LocalConfigService implements IConfig {
 
     const pluginLabApp = new PluginLabApp(pluginLabAppConfig);
     try {
-      await pluginLabApp.getAuth().verifyIdToken(authorization);
+      const auth = pluginLabApp.getAuth();
+      console.log('got Auth Object %o', auth);
+
+      const verify = auth.verifyIdToken(authorization);
+      console.log('got Verify Object %o', verify);
+
       return true;
     } catch {
       throw new UnauthorizedException('PluginLab Authorization header is not valid');
