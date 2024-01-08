@@ -31,6 +31,9 @@ export class LocalConfigService implements IConfig {
   async verifyPluginLabAccess(authorization: string): Promise<boolean> {
     if (!authorization) throw new UnauthorizedException('Authorization header is not provided');
 
+    // strip the Bearer prefix
+    const authJwt = authorization.replace(/^Bearer\s/, '');
+
     const pluginLabAppConfig = this.configService.get<PluginLabAppConfig>('pluginLabAppConfig');
     if (!pluginLabAppConfig) throw new UnauthorizedException('PluginLab configuration is not defined');
 
@@ -39,7 +42,7 @@ export class LocalConfigService implements IConfig {
       const auth = pluginLabApp.getAuth();
       // console.log('got Auth Object %o', auth);
 
-      const verify = await auth.verifyIdToken(authorization);
+      const verify = await auth.verifyIdToken(authJwt);
       console.log('got Verify Object %o', verify);
 
       return true;
