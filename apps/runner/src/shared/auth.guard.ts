@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
 
     const apiKey = request.headers['x-api-key'];
     const pluginLabEventId = request.headers['x-pluginlab-event-id'];
-    const pluginLabAuthorization = request.headers['Authorization'];
+    const pluginLabAuthorization = request.headers['authorization'];
 
     console.log('got Headers %o', request.headers);
 
