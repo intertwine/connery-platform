@@ -1,4 +1,4 @@
-import { Public } from ':src/shared/auth.guard';
+import { Public } from ':src/shared/guards/auth.guard';
 import { ObjectResponse } from ':src/shared/api-types';
 import { Controller, Get } from '@nestjs/common';
 
