@@ -37,9 +37,9 @@ export class LocalConfigService implements IConfig {
     const pluginLabApp = new PluginLabApp(pluginLabAppConfig);
     try {
       const auth = pluginLabApp.getAuth();
-      console.log('got Auth Object %o', auth);
+      // console.log('got Auth Object %o', auth);
 
-      const verify = auth.verifyIdToken(authorization);
+      const verify = await auth.verifyIdToken(authorization);
       console.log('got Verify Object %o', verify);
 
       return true;
