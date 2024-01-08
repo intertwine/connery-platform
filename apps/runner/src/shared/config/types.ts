@@ -16,8 +16,14 @@ export type RunnerConfig = {
   publicUrl: string;
 };
 
+export type PluginLabAppConfig = {
+  pluginId: string;
+  secretKey: string;
+};
+
 export type Config = {
   apiKeys: ApiKeyConfig[];
   installedPlugins: InstalledPluginConfig[];
   runnerConfig: RunnerConfig;
+  pluginLabAppConfig: PluginLabAppConfig;
 };

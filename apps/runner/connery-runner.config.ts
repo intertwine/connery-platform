@@ -40,6 +40,13 @@ const config: Config = {
     },
   ],
 
+  pluginLabAppConfig: {
+    // This are configuration parameters for API access via a PluginLab app.
+    // Used internally when PluginLab sends a request to the runner.
+    pluginId: process.env.PLUGINLAB_PLUGIN_ID || '',
+    secretKey: process.env.PLUGINLAB_SECRET_KEY || '',
+  },
+
   // List of plugins installed on the runner.
   installedPlugins: [
     {
