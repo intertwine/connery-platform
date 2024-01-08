@@ -1,22 +1,22 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { LocalConfigService } from './config/local-config.service';
-import { MemoryCacheService } from './plugin-cache/memory-cache.service';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './auth.guard';
-import { OpenAiService } from './llm/openai.service';
 import { IConfig } from './config/config.interface';
-import { IPluginCache } from './plugin-cache/plugin-cache.interface';
+import { LocalConfigService } from './config/local-config.service';
+import { PluginLabGuard } from './guards/pluginlab.guard';
 import { ILlm } from './llm/llm.interface';
-import { OpenApiService } from './openapi.service';
 import { IOpenAI } from './llm/openai.interface';
+import { OpenAiService } from './llm/openai.service';
+import { OpenApiService } from './openapi.service';
+import { MemoryCacheService } from './plugin-cache/memory-cache.service';
+import { IPluginCache } from './plugin-cache/plugin-cache.interface';
 
 @Module({
   imports: [ConfigModule],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: AuthGuard,
+      useClass: PluginLabGuard,
     },
     {
       provide: IConfig,
