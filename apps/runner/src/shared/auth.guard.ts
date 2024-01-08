@@ -31,6 +31,8 @@ export class AuthGuard implements CanActivate {
     const pluginLabEventId = request.headers['x-pluginlab-event-id'];
     const pluginLabAuthorization = request.headers['Authorization'];
 
+    console.log('got Headers %o', request.headers);
+
     try {
       if (pluginLabEventId) {
         return await this.config.verifyPluginLabAccess(pluginLabAuthorization);
