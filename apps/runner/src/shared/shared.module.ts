@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Req } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { IConfig } from './config/config.interface';
@@ -10,6 +10,7 @@ import { OpenAiService } from './llm/openai.service';
 import { OpenApiService } from './openapi.service';
 import { MemoryCacheService } from './plugin-cache/memory-cache.service';
 import { IPluginCache } from './plugin-cache/plugin-cache.interface';
+import { IUserService, UserService } from './user.service';
 
 @Module({
   imports: [ConfigModule],
@@ -34,8 +35,12 @@ import { IPluginCache } from './plugin-cache/plugin-cache.interface';
       provide: IOpenAI,
       useClass: OpenAiService,
     },
+    {
+      provide: IUserService,
+      useClass: UserService,
+    },
     OpenApiService,
   ],
-  exports: [IConfig, IPluginCache, ILlm, IOpenAI, OpenApiService],
+  exports: [IConfig, IPluginCache, ILlm, IOpenAI, IUserService, OpenApiService],
 })
 export class SharedModule {}
