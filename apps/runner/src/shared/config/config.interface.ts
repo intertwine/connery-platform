@@ -2,7 +2,7 @@ import { InstalledPluginConfig, RunnerConfig } from './types';
 
 export interface IConfig {
   verifyAccess(apiKey: string): boolean;
-  verifyPluginLabAccess(authorization: string): Promise<boolean>;
+  verifyPluginLabAccess(authorization: string): Promise<{ uid: string }>;
   getInstalledPlugins(): InstalledPluginConfig[];
   getRunnerConfig(): RunnerConfig;
 }

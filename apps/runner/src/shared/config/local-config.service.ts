@@ -28,7 +28,7 @@ export class LocalConfigService implements IConfig {
     return isAccessAllowed;
   }
 
-  async verifyPluginLabAccess(authorization: string): Promise<boolean> {
+  async verifyPluginLabAccess(authorization: string): Promise<{ uid: string }> {
     if (!authorization) throw new UnauthorizedException('Authorization header is not provided');
 
     // strip the Bearer prefix
@@ -40,12 +40,12 @@ export class LocalConfigService implements IConfig {
     const pluginLabApp = new PluginLabApp(pluginLabAppConfig);
     try {
       const auth = pluginLabApp.getAuth();
-      // console.log('got Auth Object %o', auth);
+      console.log('got Auth Object %o', auth);
 
       const user = await auth.verifyIdToken(authJwt);
       console.log('got Verify Object %o', user);
 
-      return true;
+      return user;
     } catch {
       throw new UnauthorizedException('PluginLab Authorization header is not valid');
     }

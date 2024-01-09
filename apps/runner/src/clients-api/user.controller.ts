@@ -8,9 +8,9 @@ export class UserController {
 
   @Get('/v1/user')
   async getUser(@Req() request: Request): Promise<ObjectResponse<IUserSchema>> {
-    const user = this.userService.getUser();
+    const user = this.userService.getUser(request);
 
-    console.log('User request %o', request.headers);
+    console.log('User request %o', user);
 
     return {
       status: 'success',

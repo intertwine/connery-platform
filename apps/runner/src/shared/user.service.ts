@@ -7,7 +7,7 @@ export interface IUserSchema {
 }
 
 export interface IUserService {
-  getUser(): IUserSchema;
+  getUser(request: Request): IUserSchema;
 }
 
 export const IUserService = Symbol('IUserService');
@@ -16,7 +16,7 @@ export const IUserService = Symbol('IUserService');
 export class UserService implements IUserService {
   constructor(@Inject(IConfig) private readonly config: IConfig) {}
 
-  getUser(): IUserSchema {
+  getUser(request: any): IUserSchema {
     return {
       name: 'Test User',
       email: 'test@example.com',
