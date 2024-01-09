@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/nest.json",
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "outDir": "dist",
     "paths": {
       ":src/*": ["./src/*"]

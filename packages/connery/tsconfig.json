@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/commander.json",
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "outDir": "dist"
   },
   "include": ["src/**/*"]
