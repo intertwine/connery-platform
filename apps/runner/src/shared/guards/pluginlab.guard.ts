@@ -2,24 +2,23 @@ import { CanActivate, ExecutionContext, HttpException, HttpStatus, Inject, Injec
 import { Reflector } from '@nestjs/core';
 import { IConfig } from '../config/config.interface';
 import { AuthGuard } from './auth.guard';
+import { IUserService } from '../user.service';
 
 @Injectable()
 export class PluginLabGuard extends AuthGuard implements CanActivate {
-  constructor(@Inject(IConfig) protected config: IConfig, protected readonly reflector: Reflector) {
+  constructor(
+    @Inject(IConfig) protected config: IConfig,
+    protected readonly reflector: Reflector,
+    @Inject(IUserService) private userService: IUserService,
+  ) {
     super(config, reflector);
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-
-    const pluginLabEventId = request.headers['x-pluginlab-event-id'];
-    const pluginLabAuthorization = request.headers['authorization'];
-
     try {
-      if (pluginLabEventId) {
-        const user = await this.config.verifyPluginLabAccess(pluginLabAuthorization);
-        console.log('User %o', user);
-        // request.res().header('x-pluginlab-user', JSON.stringify(user));
+      const user = await this.userService.getUser(request);
+      if (user) {
         return true;
       } else {
         return await super.canActivate(context);

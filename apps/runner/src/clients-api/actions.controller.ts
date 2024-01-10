@@ -15,7 +15,6 @@ import { OpenAPIV3 } from 'openapi-types';
 import { IPluginCache } from ':src/shared/plugin-cache/plugin-cache.interface';
 import { ActionOutput } from 'lib';
 import { Public } from ':src/shared/guards/auth.guard';
-import { InputParametersObject } from '@connery-io/sdk';
 
 @Controller()
 export class ActionsController {
