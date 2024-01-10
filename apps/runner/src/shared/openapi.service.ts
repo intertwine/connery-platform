@@ -23,8 +23,8 @@ export class OpenApiService {
     const openApiSchema: OpenAPIV3.Document = {
       openapi: '3.0.0',
       info: {
-        title: 'OpenAPI Specification for Connery actions',
-        description: 'This is the OpenAPI Specification actions available on the Connery runner.',
+        title: 'OpenAPI Specification for Intertwine Connery actions',
+        description: 'This is the OpenAPI Specification actions available on the Intertwine Connery runner.',
         version: '1.0.0',
       },
       externalDocs: {
@@ -37,6 +37,34 @@ export class OpenApiService {
         },
       ],
       paths: {
+        '/v1/user': {
+          get: {
+            operationId: 'getUserInfo',
+            summary: 'Get information about the user',
+            description:
+              'Get infomation about the logged in user including their name and email. If this returns with a not found error, the user needs to login. When successful, store the results of this call locally.',
+            'x-openai-isConsequential': false,
+            parameters: [],
+            responses: {
+              200: {
+                description: 'OK',
+                content: {
+                  'application/json': {
+                    schema: {
+                      $ref: '#/components/schemas/ActionListResponse',
+                    },
+                  },
+                },
+              },
+              400: { $ref: '#/components/responses/ErrorResponse' },
+              401: { $ref: '#/components/responses/ErrorResponse' },
+              403: { $ref: '#/components/responses/ErrorResponse' },
+              404: { $ref: '#/components/responses/ErrorResponse' },
+              500: { $ref: '#/components/responses/ErrorResponse' },
+            },
+            security: [{ ApiKeyAuth: [] }],
+          } as ExtendedOperationObject,
+        },
         '/v1/actions': {
           get: {
             operationId: 'listActions',
@@ -125,6 +153,55 @@ export class OpenApiService {
           },
         },
         schemas: {
+          UserInfoResponse: {
+            title: 'User info response',
+            description: 'User info response.',
+            type: 'object',
+            properties: {
+              status: {
+                type: 'string',
+                enum: ['success'],
+              },
+              data: {
+                title: 'Information about the current user',
+                description: 'Information about the current user.',
+                type: 'object',
+                properties: {
+                  id: {
+                    title: 'User ID',
+                    description: 'The unique id for the user',
+                    type: 'string',
+                  },
+                  email: {
+                    title: 'User Email',
+                    description: 'The users email address. You are only allowed to send email to this address.',
+                    type: 'string',
+                  },
+                  name: {
+                    title: 'User Full Name',
+                    description: 'The users full name',
+                    type: 'string',
+                  },
+                  givenName: {
+                    title: 'User Given Name',
+                    description: 'The users given name (may be blank)',
+                    type: 'string',
+                  },
+                  planId: {
+                    title: 'User Susbscription Plan ID',
+                    description: 'The unique id of the users subscription (if any)',
+                    type: 'string',
+                  },
+                  priceId: {
+                    title: 'User Susbscription Price ID',
+                    description: 'The unique id of the users subscription price level (if any)',
+                    type: 'string',
+                  },
+                },
+              },
+            },
+            required: ['status', 'data'],
+          },
           ActionListResponse: {
             title: 'Action list response',
             description: 'Action list response.',
