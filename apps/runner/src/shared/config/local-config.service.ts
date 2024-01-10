@@ -33,6 +33,7 @@ export class LocalConfigService implements IConfig {
 
     // strip the Bearer prefix
     const authJwt = authorization.replace(/^Bearer\s/, '');
+    console.log('got JWT %o', authJwt);
 
     const pluginLabAppConfig = this.configService.get<PluginLabAppConfig>('pluginLabAppConfig');
     if (!pluginLabAppConfig) throw new UnauthorizedException('PluginLab configuration is not defined');
@@ -40,7 +41,7 @@ export class LocalConfigService implements IConfig {
     const pluginLabApp = new PluginLabApp(pluginLabAppConfig);
     try {
       const auth = pluginLabApp.getAuth();
-      console.log('got Auth Object %o', auth);
+      // console.log('got Auth Object %o', auth);
 
       const user = await auth.verifyIdToken(authJwt);
       console.log('got Verify Object %o', user);

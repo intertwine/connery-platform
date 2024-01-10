@@ -19,7 +19,7 @@ export class PluginLabGuard extends AuthGuard implements CanActivate {
       if (pluginLabEventId) {
         const user = await this.config.verifyPluginLabAccess(pluginLabAuthorization);
         console.log('User %o', user);
-        request.res().header('x-pluginlab-user', JSON.stringify(user));
+        // request.res().header('x-pluginlab-user', JSON.stringify(user));
         return true;
       } else {
         return await super.canActivate(context);
